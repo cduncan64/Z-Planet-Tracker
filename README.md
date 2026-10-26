@@ -43,15 +43,98 @@ Since pin 8 of the DIN connector was unused, I bodge wired it to a 5 volt trace 
 
 The GPS provides the Location, Date and Time data that is used for the low-precision Keplerian orbital calculations.
 
- Then transforms the coordinated to determine where each object will be. 
+Then the z80 transforms the coordinates to determine where each object will be. 
 It is not simply looking up planetary positions in a table. The Z80 calculates them from the date, time, orbital elements, and observer's location.
 
 
+Presenting the Z80 PLANET TRACKER
 
-MORE STUFF GOES HERE!
+<img width="232" height="243" alt="Z80_Planet_Tracker" src="https://github.com/user-attachments/assets/a6d47785-5d5a-419d-82ed-b2715915e830" />
 
-<img width="150" height="200" alt="Saturn_Ticket" src="https://github.com/user-attachments/assets/eab12771-074d-499d-9169-d5bb32936db5" />
-The printer is used to create a 'ticket' to the show.
+The work flow is as follows:
+
+Upon power up, the GPS starts recieving GPS data while the z80 does firmware initialization for the PIO. This enables the keypad and display.
+
+
+A Splash screen is presented.
+<img width="385" height="100" alt="Z_PLANET" src="https://github.com/user-attachments/assets/687ab5ef-2a2d-466c-a710-f97ce2d3a1b4" />
+
+The piezo sounder plays its two-note startup chime.
+After 10 seconds or the user pressing the ENTER key,  the message GPS FIX is displayed.
+
+<img width="385" height="100" alt="GPS_FIX" src="https://github.com/user-attachments/assets/ccb57135-ca97-4a5e-86f3-d35d56d9a505" />
+  
+Following a successful GPS fix,  another message is displayed:  FIX ACQUIRED
+
+
+In order to provide the user with their local time, 
+ they are queried with a UTC OFFSET? screen,
+ <img width="385" height="100" alt="UTC_OFFSET" src="https://github.com/user-attachments/assets/9e781f33-f0ae-409f-b8e5-76a242a5f527" />
+
+which allows the user to select how far or behind their location is from UTC.
+
+Next, they are presented with an OPTIONS? screen that will allow them to decide which object they wish to calculate on.
+<img width="100" height="385" alt="Options" src="https://github.com/user-attachments/assets/7a9f9c40-ad1f-4786-a306-674050284ba7" />
+ <img width="385" height="100" alt="Option_Screen" src="https://github.com/user-attachments/assets/63aba66b-a681-426b-b519-129c71453bb8" />
+
+
+After their selection, the TRANZ330 has all the information needed to performs the calculation.
+<img width="385" height="100" alt="Jupiter_Calc" src="https://github.com/user-attachments/assets/7b2b351f-68ce-4463-a13f-b829bc9394ab" />
+
+When done, the display will tell if the object is VIS or NOT VIS (Visible or Not Visible) at the present time.
+
+<img width="385" height="100" alt="Jupiter_no_Vis" src="https://github.com/user-attachments/assets/9593bcc1-82a4-4f92-ace6-fbac45417fed" />
+
+Pressing the ENTER key cycles through the data. 
+
+RISE TIME
+
+<img width="385" height="100" alt="Rise" src="https://github.com/user-attachments/assets/7c70952f-1900-4c54-a599-44847ff2a76a" />
+
+SET TIME
+
+<img width="385" height="100" alt="Set" src="https://github.com/user-attachments/assets/fa3581e5-5b5c-4f5f-ad9b-5f25857568b7" />
+
+<img width="385" height="100" alt="AZIMUTH" src="https://github.com/user-attachments/assets/9f8c87c3-4467-4c1c-b8a6-80bc05fe37ac" />
+AZIMUTH (compass heading).
+  
+<img width="385" height="100" alt="Elevation" src="https://github.com/user-attachments/assets/a2042587-a144-406e-a069-cc9c9c01d958" />
+ELEVATION (degrees above or below the horizon).
+
+
+DATE and TIME (local time)
+<img width="385" height="100" alt="Date_Time" src="https://github.com/user-attachments/assets/06a543a4-76ad-4b8a-b2b0-04c6c3de04d8" />
+
+LATITUDE and LONGITUDE (location of the user)<img width="385" height="100" alt="Lat_Lon" src="https://github.com/user-attachments/assets/39f6ca6a-0247-4d48-88f5-30c97c67c854" />
+
+A PRINT screen is provided and has a default answer of NO so that pressing ENTER restarts the cycle.
+<img width="385" height="100" alt="Print_Yes" src="https://github.com/user-attachments/assets/4f73346c-4c75-4515-add3-bbc87e2dc88d" />
+PRESSING the * key selects YES and pressing ENTER advances to the next printing screen.
+
+
+
+
+PRINT NOW? is displayed and pressing ENTER initiates the print out. 
+Pressing the * key selects NO and pressing ENTER advances to the 
+DATE and TIME screen which allows the user to select a date in which to calculate on.  
+This would be handy if, during the day,  you wanted to print out a planet's information for later that evening.
+A print out consists of the OBJECT's name, its visibility, the LAT and LON for that location, Date and TIME (in UTC),
+and the AZIMUTH and ELEVATION for that event.  <img width="150" height="200" alt="Saturn_Ticket" src="https://github.com/user-attachments/assets/eab12771-074d-499d-9169-d5bb32936db5" /> Sample printout of a 'ticket' to the show.
+
+What was cool about this project and made it easy to accomplish was that the TRANZ330 had an 32 kb UV-EPROM.
+This made firmware changes easy.
+I could of made an EEPROM (Electrically Eraseable PROM) using an Atmel AT28C256, but other components got in the way.
+Erasing and Programming UV EPROMs is only considered cool in certain circles,  but if you can get and UV chip eraser and a programmer you can join!
+I had acquired a old/used UV lamp from a hospital and had a GQ-4x4 USB EPROM programmer from previous projects builds. 
+
+This would be a great place to thank OshonSoft for their Z80 simulator.  It came in real handy since it can simulate a display and keypad. 
+I would have had to burn many, many more ROMS otherwise. THANKS!
+
+Also like to thank Big Mess O' Wires who did all the ground work for mapping out the TRANZ330
+and Mike Ingle, author of the verbanner.c program which allowed me to add the cool logo to the event tickets.
+
+
+
 
 
 
