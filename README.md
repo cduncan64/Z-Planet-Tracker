@@ -41,8 +41,9 @@ There is no 5 volt dc on the serial port I used.
 Since pin 8 of the DIN connector was unused, I bodge wired it to a 5 volt trace on the pcb.
 
 
-The GPS provides the Location, Date and Time data that is used for the low-precision Keplerian orbital calculations.
-
+The GPS provides the Location, Date and Time data that is used for the low-precision Keplerian orbital calculations.<br/>
+(If you are interested in the mathing,  visit (link below) <ins>Computing planetary positions - a tutorial with worked examples
+By Paul Schlyter, Stockholm, Sweden.)</ins><br/>
 Then the z80 transforms the coordinates to determine where each object will be. 
 It is not simply looking up planetary positions in a table. The Z80 calculates them from the date, time, orbital elements, and observer's location.
 
@@ -113,24 +114,36 @@ LATITUDE and LONGITUDE (location of the user)<br/>
 <img width="385" height="100" alt="Lat_Lon" src="https://github.com/user-attachments/assets/39f6ca6a-0247-4d48-88f5-30c97c67c854" />
 
 A PRINT screen is provided and has a default answer of NO so that pressing ENTER restarts the cycle.<br/>
+<img width="385" height="100" alt="PRINT_NO" src="https://github.com/user-attachments/assets/757d66f7-37a5-4916-b209-5854a3a73bc4" />
+
+PRESSING the * key selects YES and pressing ENTER advances to the next printing screen.<br/>
 <img width="385" height="100" alt="Print_Yes" src="https://github.com/user-attachments/assets/4f73346c-4c75-4515-add3-bbc87e2dc88d" />
-PRESSING the * key selects YES and pressing ENTER advances to the next printing screen.
 
+PRINT NOW? is displayed and pressing ENTER initiates the print out. <br/>
+<img width="385" height="100" alt="NOW" src="https://github.com/user-attachments/assets/9ca4a4dd-a81d-4472-a705-99296d8adc65" />
 
+Pressing the * key selects NO and pressing ENTER presents a 
+DATE and TIME screen that allows the user to select a date in which to calculate on.<br/>
+<img width="385" height="100" alt="DATE" src="https://github.com/user-attachments/assets/5d266f69-e81e-461b-8d7c-4ca3bf22c8f7" />
 
-
-PRINT NOW? is displayed and pressing ENTER initiates the print out. 
-Pressing the * key selects NO and pressing ENTER advances to the 
-DATE and TIME screen which allows the user to select a date in which to calculate on.  
 This would be handy if, during the day,  you wanted to print out a planet's information for later that evening.
 A print out consists of the OBJECT's name, its visibility, the LAT and LON for that location, Date and TIME (in UTC),
-and the AZIMUTH and ELEVATION for that event.  <img width="150" height="200" alt="Saturn_Ticket" src="https://github.com/user-attachments/assets/eab12771-074d-499d-9169-d5bb32936db5" /> Sample printout of a 'ticket' to the show.
+and the AZIMUTH and ELEVATION for that event.<br/>
 
+
+
+
+<img width="273" height="319" alt="Ticket_Saturn9" src="https://github.com/user-attachments/assets/40458938-14ae-44d9-adb2-35be1430d486" />
+Sample printout of a 'ticket' to the show.<br/><br/>
+
+FINAL COMMENTS<br/>
 What was cool about this project and made it easy to accomplish was that the TRANZ330 had an 32 kb UV-EPROM.
 This made firmware changes easy.
-I could of made an EEPROM (Electrically Eraseable PROM) using an Atmel AT28C256, but other components got in the way.
+I could have made an EEPROM (Electrically Eraseable PROM) using an Atmel AT28C256, but other components got in the way.
 Erasing and Programming UV EPROMs is only considered cool in certain circles,  but if you can get and UV chip eraser and a programmer you can join!
-I had acquired a old/used UV lamp from a hospital and had a GQ-4x4 USB EPROM programmer from previous projects builds. 
+I had acquired a old/used UV lamp from a hospital and had a GQ-4x4 USB EPROM programmer from previous projects builds.<br/> 
+
+If I had any advice to others, it would be to watch out for JR instructions.  They can easily be made to jump beyond their permitted boundary.<br/>
 
 This would be a great place to thank OshonSoft for their Z80 simulator.  It came in real handy since it can simulate a display and keypad. 
 I would have had to burn many, many more ROMS otherwise. THANKS!
@@ -154,6 +167,8 @@ https://www.confidantmail.org/wordpress/index.php/2017/09/09/hack-a-receipt-prin
 https://www.confidantmail.org/download/verifone250manual.pdf
 
 https://www.possupply.com/sca/pdf/Verifone/VeriFone-TRANZ-330-User-Manual.pdf
+
+https://www.stjarnhimlen.se/comp/tutorial.html
 
 Disclaimer: I used chatGPT (because I suck at z80 assembler. Well not just z80 assembler, any assembler for that matter, and not just assembler, also c++, Python, ... 
 Truth: I can program, but have never messed with the z80 in assembler.  ( I have a PIC assembler background.) 
